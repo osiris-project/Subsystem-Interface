@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cm8u1mv75qans"]
+[gd_scene load_steps=12 format=3 uid="uid://cm8u1mv75qans"]
 
 [ext_resource type="PackedScene" uid="uid://ktm7k0co2o7l" path="res://addons/mqtt/mqtt.tscn" id="1_8766w"]
 [ext_resource type="Script" uid="uid://crndry8xkkvrm" path="res://Scripts/subsystem.gd" id="1_nxinu"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://yd8yx4brn8nj" path="res://Images/Rotary Encoder.png" id="5_75y6h"]
 [ext_resource type="Texture2D" uid="uid://do3vvo612x0au" path="res://Images/7 Seg Outline.png" id="6_dbybx"]
 [ext_resource type="Texture2D" uid="uid://bkbujx68ilpsc" path="res://Images/Button Blank.png" id="7_nxinu"]
+[ext_resource type="Script" uid="uid://c510gudimiitu" path="res://Scripts/7_seg.gd" id="8_t6kyj"]
+[ext_resource type="Texture2D" uid="uid://eggolxivdra6" path="res://Images/Seven Seg Off.png" id="9_k3q2j"]
+[ext_resource type="Script" uid="uid://celcojxcatbos" path="res://Scripts/button.gd" id="11_g2vic"]
 
 [node name="Subsystem" type="Node2D"]
 script = ExtResource("1_nxinu")
@@ -76,15 +79,33 @@ position = Vector2(-44, -216)
 scale = Vector2(0.105, 0.105)
 texture = ExtResource("5_75y6h")
 
-[node name="7 Seg Body" type="Sprite2D" parent="Panel/Section 1"]
+[node name="7 Seg" type="Sprite2D" parent="Panel/Section 1"]
 position = Vector2(-96, -218)
 scale = Vector2(0.155, 0.155)
 texture = ExtResource("6_dbybx")
+script = ExtResource("8_t6kyj")
+number = 235
 
-[node name="Sprite2D" type="Sprite2D" parent="Panel/Section 1"]
+[node name="OnesPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(116.129, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="TwosPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(7.43866e-05, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="ThreesPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(-116.129, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="Button" type="Sprite2D" parent="Panel/Section 1"]
 position = Vector2(-6.00002, -93)
 scale = Vector2(0.0875, 0.0875)
 texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
 
 [node name="Section 2" type="Node2D" parent="Panel"]
 scale = Vector2(1.693, 1.9802)
@@ -92,4 +113,6 @@ scale = Vector2(1.693, 1.9802)
 [node name="Section 3" type="Node2D" parent="Panel"]
 scale = Vector2(1.693, 1.9802)
 
+[connection signal="newSectionNumber" from="." to="Panel/Section 1/Button" method="_on_subsystem_new_section_number"]
+[connection signal="updateSevenSeg" from="." to="Panel/Section 1/7 Seg" method="_updateSevenSeg"]
 [connection signal="received_message" from="MQTT" to="." method="_on_mqtt_received_message"]

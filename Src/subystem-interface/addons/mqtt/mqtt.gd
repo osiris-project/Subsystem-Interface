@@ -68,13 +68,10 @@ var common_name = null
 func senddata(data):
 	var E = 0
 	if sslsocket != null:
-		print("SSLSOCKET");
 		E = sslsocket.put_data(data)
 	elif socket != null:
-		print("socket");
 		E = socket.put_data(data)
 	elif websocket != null:
-		print("websocket");
 		E = websocket.put_packet(data)
 	if E != 0:
 		print("bad senddata packet E=", E)
@@ -371,7 +368,6 @@ func subscribe(stopic, qos=0):
 	assert (len(pkt) - remstartpos == sz)
 	if verbose_level:
 		print("SUBSCRIBE[%d] topic=%s" % [pid, stopic])
-	print(pkt);
 	senddata(pkt)
 
 func pingreq():

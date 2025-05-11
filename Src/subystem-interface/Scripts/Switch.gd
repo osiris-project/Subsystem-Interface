@@ -5,7 +5,8 @@ extends Sprite2D
 var isClicked:bool = false;
  
 func _process(delta: float):
-	if isClicked and texture != textures[1]:
-		texture = textures[1]
+	if isClicked:
+		if texture != textures[1]:
+			texture = textures[1]
 	elif texture != textures[0]:
 		texture = textures[0]
