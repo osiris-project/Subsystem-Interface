@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://cm8u1mv75qans"]
+
+[ext_resource type="PackedScene" uid="uid://ktm7k0co2o7l" path="res://addons/mqtt/mqtt.tscn" id="1_8766w"]
+[ext_resource type="Script" uid="uid://crndry8xkkvrm" path="res://Scripts/subsystem.gd" id="1_nxinu"]
+[ext_resource type="Texture2D" uid="uid://doa73sws2qhsa" path="res://Images/Panel Background.png" id="2_q6pry"]
+[ext_resource type="Script" uid="uid://bpuw2hnks114s" path="res://Scripts/Switch.gd" id="3_2avi7"]
+[ext_resource type="Texture2D" uid="uid://dv68c86ys5u2c" path="res://Images/Button_Off.png" id="3_curtp"]
+[ext_resource type="Texture2D" uid="uid://yd8yx4brn8nj" path="res://Images/Rotary Encoder.png" id="5_75y6h"]
+[ext_resource type="Texture2D" uid="uid://do3vvo612x0au" path="res://Images/7 Seg Outline.png" id="6_dbybx"]
+[ext_resource type="Texture2D" uid="uid://bkbujx68ilpsc" path="res://Images/Button Blank.png" id="7_nxinu"]
+
+[node name="Subsystem" type="Node2D"]
+script = ExtResource("1_nxinu")
+IP_MQTT = null
+
+[node name="MQTT" parent="." instance=ExtResource("1_8766w")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Panel" type="Sprite2D" parent="."]
+scale = Vector2(0.590667, 0.505)
+texture = ExtResource("2_q6pry")
+
+[node name="Section 1" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[node name="Switch 1" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-105.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 2" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-75.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 3" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-44.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 4" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-14.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 5" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(16, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 6" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(47, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 7" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(78, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Switch 8" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(108.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+script = ExtResource("3_2avi7")
+
+[node name="Rotary Encoder" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-44, -216)
+scale = Vector2(0.105, 0.105)
+texture = ExtResource("5_75y6h")
+
+[node name="7 Seg Body" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-96, -218)
+scale = Vector2(0.155, 0.155)
+texture = ExtResource("6_dbybx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-6.00002, -93)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+
+[node name="Section 2" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[node name="Section 3" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[connection signal="received_message" from="MQTT" to="." method="_on_mqtt_received_message"]
