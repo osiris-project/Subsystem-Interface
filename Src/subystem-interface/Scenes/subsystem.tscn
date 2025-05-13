@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cm8u1mv75qans"]
+[gd_scene load_steps=14 format=3 uid="uid://cm8u1mv75qans"]
 
 [ext_resource type="PackedScene" uid="uid://ktm7k0co2o7l" path="res://addons/mqtt/mqtt.tscn" id="1_8766w"]
 [ext_resource type="Script" uid="uid://crndry8xkkvrm" path="res://Scripts/subsystem.gd" id="1_nxinu"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://c510gudimiitu" path="res://Scripts/7_seg.gd" id="8_t6kyj"]
 [ext_resource type="Texture2D" uid="uid://eggolxivdra6" path="res://Images/Seven Seg Off.png" id="9_k3q2j"]
 [ext_resource type="Script" uid="uid://celcojxcatbos" path="res://Scripts/button.gd" id="11_g2vic"]
+[ext_resource type="Texture2D" uid="uid://diq8pvm3kl1pl" path="res://Images/Jack.png" id="12_6kiqy"]
+[ext_resource type="Script" uid="uid://ookmmf6p6wbi" path="res://Scripts/jacks.gd" id="12_ochvj"]
 
 [node name="Subsystem" type="Node2D"]
 script = ExtResource("1_nxinu")
@@ -26,53 +28,48 @@ texture = ExtResource("2_q6pry")
 [node name="Section 1" type="Node2D" parent="Panel"]
 scale = Vector2(1.693, 1.9802)
 
-[node name="Switch 1" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switches" type="Node2D" parent="Panel/Section 1"]
+script = ExtResource("3_2avi7")
+
+[node name="Switch 1" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(-105.5, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 2" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 2" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(-75.5, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 3" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 3" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(-44.5, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 4" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 4" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(-14.5, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 5" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 5" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(16, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 6" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 6" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(47, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 7" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 7" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(78, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
-[node name="Switch 8" type="Sprite2D" parent="Panel/Section 1"]
+[node name="Switch 8" type="Sprite2D" parent="Panel/Section 1/Switches"]
 position = Vector2(108.5, -164)
 scale = Vector2(0.19, 0.19)
 texture = ExtResource("3_curtp")
-script = ExtResource("3_2avi7")
 
 [node name="Rotary Encoder" type="Sprite2D" parent="Panel/Section 1"]
 position = Vector2(-44, -216)
@@ -110,9 +107,81 @@ script = ExtResource("11_g2vic")
 [node name="Section 2" type="Node2D" parent="Panel"]
 scale = Vector2(1.693, 1.9802)
 
+[node name="Jacks" type="Node2D" parent="Panel/Section 2"]
+script = ExtResource("12_ochvj")
+
+[node name="Jack 1" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 51.9999)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 2" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 76.9999)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 3" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 102)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 4" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 128)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 5" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 154)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 6" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 67.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 7" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 92.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 8" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 117.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 9" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 143.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 10" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 169.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Button" type="Sprite2D" parent="Panel/Section 2"]
+position = Vector2(-109, 0)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
+sectionNumber = 2
+
 [node name="Section 3" type="Node2D" parent="Panel"]
 scale = Vector2(1.693, 1.9802)
 
+[node name="Button" type="Sprite2D" parent="Panel/Section 3"]
+position = Vector2(80.0001, 4)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
+sectionNumber = 3
+
 [connection signal="newSectionNumber" from="." to="Panel/Section 1/Button" method="_on_subsystem_new_section_number"]
+[connection signal="newSectionNumber" from="." to="Panel/Section 2/Button" method="_on_subsystem_new_section_number"]
+[connection signal="newSectionNumber" from="." to="Panel/Section 3/Button" method="_on_subsystem_new_section_number"]
+[connection signal="updateJacks" from="." to="Panel/Section 2/Jacks" method="_on_subsystem_update_jacks"]
+[connection signal="updateJacksSolution" from="." to="Panel/Section 2/Jacks" method="_on_subsystem_update_jacks_solution"]
 [connection signal="updateSevenSeg" from="." to="Panel/Section 1/7 Seg" method="_updateSevenSeg"]
+[connection signal="updateSwitches" from="." to="Panel/Section 1/Switches" method="_on_subsystem_update_switches"]
 [connection signal="received_message" from="MQTT" to="." method="_on_mqtt_received_message"]

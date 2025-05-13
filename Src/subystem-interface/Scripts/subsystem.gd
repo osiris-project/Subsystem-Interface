@@ -1,12 +1,25 @@
 extends Node2D
 
 @onready var MQTT = $MQTT;
-@onready var switches: Array = [$"Panel/Section 1/Switch 1", $"Panel/Section 1/Switch 2", $"Panel/Section 1/Switch 3", $"Panel/Section 1/Switch 4", 
-								$"Panel/Section 1/Switch 5", $"Panel/Section 1/Switch 6",$"Panel/Section 1/Switch 7", $"Panel/Section 1/Switch 8"];
 @export var IP_MQTT = "192.168.0.162"
+var timeSinceStart: float = 0.0;
+var madeRequests: bool = false;
 
 signal updateSevenSeg(newNumber: int);
+signal updateSwitches(newNumber: int);
 signal newSectionNumber(newSection: int);
+signal updateJacks(config:String);
+signal updateJacksSolution(config:String);
+signal updateButtons(config:String);
+signal updateButtonsSolution(config:String);
+signal submissionResult(success:bool);
+signal lastCompletedSystem(lastSystem: int);
+
+func startOnIp(NewIP:String):
+	IP_MQTT = NewIP;
+	madeRequests = false;
+	timeSinceStart = 0;
+
 
 func connectMQTT():
 	print("connecting");
@@ -20,12 +33,11 @@ func connectMQTT():
 		print("SERVER NOT FOUND");
 	else:
 		print("connected to server");
-		
-		
+
+
 func _ready():
 	connectMQTT();
 
-var timeSinceStart: float = 0.0;
 
 func makeSubscriptions():
 	MQTT.subscribe("Subsystem/Subsystem");
@@ -37,25 +49,33 @@ func makeSubscriptions():
 	MQTT.subscribe("Subsystem/Section");
 	MQTT.subscribe("Subsystem/SubmissionResult");
 	MQTT.subscribe("Subsystem/CompletedSystem");
-	
+
+
+func requestRefresh():
+	print("Making requests");
+	MQTT.publish("Subsystem/req", "Update");
+
 
 func _process(delta: float) -> void:
 	if(timeSinceStart >= 0):
-		if(timeSinceStart > 1):
+		if(timeSinceStart > 0.5 && !madeRequests):
 			makeSubscriptions();
+			madeRequests = true;
+		elif(timeSinceStart > 1):
+			requestRefresh();
 			timeSinceStart = -1;
-		elif(timeSinceStart <= 1):
+		else:
 			timeSinceStart += delta;
 
 
 func _on_mqtt_received_message(topic: Variant, message: Variant) -> void:
 	if(topic == "Subsystem/Subsystem"):
-		var subsytem:int = int(message);
-		var mask:int = 128;
-		for i in range(8):
-			switches[i].isClicked = subsytem & mask;
-			mask = mask >> 1;
+		updateSwitches.emit(int(message))
 	elif(topic == "Subsystem/System"):
 		updateSevenSeg.emit(int(message));
 	elif(topic == "Subsystem/Section"):
 		newSectionNumber.emit(int(message));
+	elif(topic == "Subsystem/Jacks"):
+		updateJacks.emit(message);
+	elif(topic == "Subsystem/JackSolution"):
+		updateJacksSolution.emit(message);
