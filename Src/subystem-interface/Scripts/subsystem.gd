@@ -7,6 +7,10 @@ var madeRequests: bool = false;
 var wasSuccessfullLastAttempt = false;
 var lastCompletedSystemRecieved = 0;
 var lastCompletedSystem = -1;
+var username = null;
+var password = null;
+var isConnected = false;
+
 
 signal updateSevenSeg(newNumber: int);
 signal updateSwitches(newNumber: int);
@@ -17,30 +21,42 @@ signal updateButtons(config:String);
 signal updateButtonsSolution(config:String);
 #signal submissionResult(success:bool); used to validate last completed system
 signal lastCompletedSystemUpdated(lastSystem: int);
+signal bringUpMenu(error: String);
 
 func startOnIp(NewIP:String):
 	IP_MQTT = NewIP;
+	connectMQTT();
 	madeRequests = false;
 	timeSinceStart = 0;
-	connectMQTT();
 
 
 func connectMQTT():
 	print("connecting");
 	MQTT.set_last_will("Subsystem/viewerClient", "disconnected", false);
 	MQTT.client_id = "Subsystem-Interface";
-	MQTT.set_user_pass("space","BeamMeUp");
-	var addr = "%s%s:%s" % ["tcp://", IP_MQTT, "1883"];
-	print(addr);
+	MQTT.set_user_pass(username,password);
+	var addr;
+	if(OS.get_name().to_lower().contains("html") || OS.get_name().to_lower().contains("web")):
+		addr = "%s%s:%s" % ["ws://", IP_MQTT, "9001"];
+	else:
+		addr = "%s%s:%s" % ["tcp://", IP_MQTT, "1883"];
 	var retval = MQTT.connect_to_broker(addr);
 	if(!retval):
-		print("SERVER NOT FOUND");
-	else:
-		print("connected to server");
+		disconnectMQTT();
+		bringUpMenu.emit("Error: Server IP is invalid or unreachable");
+	isConnected = true;
 
-
-func _ready():
-	startOnIp(IP_MQTT);
+func disconnectMQTT():
+	updateSevenSeg.emit(0);
+	updateSwitches.emit(0);
+	newSectionNumber.emit(0);
+	updateJacks.emit("0,0;0,0;0,0;0,0;0,0;");
+	updateJacksSolution.emit("0,0;0,0;0,0;0,0;0,0;");
+	updateButtons.emit("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
+	updateButtonsSolution.emit("0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,");
+	timeSinceStart = -1;
+	MQTT.disconnect_from_server();
+	isConnected = false;
 
 
 func makeSubscriptions():
@@ -56,13 +72,12 @@ func makeSubscriptions():
 
 
 func requestRefresh():
-	print("Making requests");
 	MQTT.publish("Subsystem/req", "Update");
 	MQTT.publish("Subsystem/viewerClient", "connected");
 
 
 func _process(delta: float) -> void:
-	if(timeSinceStart >= 0):
+	if(timeSinceStart >= 0 && isConnected):
 		if(timeSinceStart > 0.5 && !madeRequests):
 			makeSubscriptions();
 			madeRequests = true;
@@ -97,3 +112,29 @@ func _on_mqtt_received_message(topic: Variant, message: Variant) -> void:
 		lastCompletedSystem = int(message);
 		if(wasSuccessfullLastAttempt):
 			lastCompletedSystemUpdated.emit(lastCompletedSystem);
+
+
+func _on_menu_set_user(user: String) -> void:
+	username = user;
+
+
+func _on_menu_set_password(pwd: String) -> void:
+	password = pwd;
+
+
+func _on_menu_button_pressed() -> void:
+	disconnectMQTT();
+	bringUpMenu.emit("");
+	
+
+
+func _on_mqtt_broker_connection_failed() -> void:
+	disconnectMQTT();
+	bringUpMenu.emit("Error: Invalid Username/Password");
+
+func _input(event: InputEvent) -> void:
+	if(isConnected):
+		if(Input.is_action_just_pressed("menu")):
+			_on_menu_button_pressed();
+		elif(Input.is_action_just_pressed("refresh")):
+			requestRefresh();

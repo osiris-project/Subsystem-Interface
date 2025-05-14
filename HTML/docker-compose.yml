@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+    httpd:
+        container_name: subsystem-interface
+        ports:
+            - '8080:80'
+        volumes:
+            - './apache:/usr/local/apache2/htdocs/'
+        image: 'httpd:latest'
+        restart: always

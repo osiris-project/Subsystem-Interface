@@ -1,0 +1,357 @@
+[gd_scene load_steps=20 format=3 uid="uid://cm8u1mv75qans"]
+
+[ext_resource type="PackedScene" uid="uid://ktm7k0co2o7l" path="res://addons/mqtt/mqtt.tscn" id="1_8766w"]
+[ext_resource type="Script" uid="uid://crndry8xkkvrm" path="res://Scripts/subsystem.gd" id="1_nxinu"]
+[ext_resource type="Texture2D" uid="uid://doa73sws2qhsa" path="res://Images/Panel Background.png" id="2_q6pry"]
+[ext_resource type="Script" uid="uid://bpuw2hnks114s" path="res://Scripts/Switch.gd" id="3_2avi7"]
+[ext_resource type="Texture2D" uid="uid://dv68c86ys5u2c" path="res://Images/Button_Off.png" id="3_curtp"]
+[ext_resource type="Texture2D" uid="uid://yd8yx4brn8nj" path="res://Images/Rotary Encoder.png" id="5_75y6h"]
+[ext_resource type="Texture2D" uid="uid://do3vvo612x0au" path="res://Images/7 Seg Outline.png" id="6_dbybx"]
+[ext_resource type="Texture2D" uid="uid://bkbujx68ilpsc" path="res://Images/Button Blank.png" id="7_nxinu"]
+[ext_resource type="Script" uid="uid://c510gudimiitu" path="res://Scripts/7_seg.gd" id="8_t6kyj"]
+[ext_resource type="Texture2D" uid="uid://eggolxivdra6" path="res://Images/Seven Seg Off.png" id="9_k3q2j"]
+[ext_resource type="Script" uid="uid://celcojxcatbos" path="res://Scripts/button.gd" id="11_g2vic"]
+[ext_resource type="Texture2D" uid="uid://diq8pvm3kl1pl" path="res://Images/Jack.png" id="12_6kiqy"]
+[ext_resource type="Script" uid="uid://ookmmf6p6wbi" path="res://Scripts/jacks.gd" id="12_ochvj"]
+[ext_resource type="Script" uid="uid://cjux6cb240v8" path="res://Scripts/button_grid.gd" id="14_mvg6v"]
+[ext_resource type="Texture2D" uid="uid://jeegmo71ip25" path="res://Images/SquareButton.png" id="15_u25w2"]
+[ext_resource type="Script" uid="uid://dbqektf02uaux" path="res://Scripts/button_on_grid.gd" id="16_qrscc"]
+[ext_resource type="Texture2D" uid="uid://dq2w70fnxab11" path="res://Images/Key for Button Grid.png" id="17_cyefm"]
+[ext_resource type="Script" uid="uid://b6jv2ybqcrklq" path="res://Scripts/text_last_completed_system.gd" id="18_mgw17"]
+[ext_resource type="PackedScene" uid="uid://d5uxh3cfrduq" path="res://Scenes/Menu.tscn" id="19_spcs5"]
+
+[node name="Subsystem" type="Node2D"]
+script = ExtResource("1_nxinu")
+
+[node name="Background" type="Polygon2D" parent="."]
+position = Vector2(-2.66666, -1.99997)
+scale = Vector2(0.743333, 0.743333)
+color = Color(0.212305, 0.212305, 0.212305, 1)
+polygon = PackedVector2Array(-800, -600, -800, 600, 800, 600, 800, -600)
+
+[node name="MQTT" parent="." instance=ExtResource("1_8766w")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Panel" type="Sprite2D" parent="."]
+scale = Vector2(0.590667, 0.505)
+texture = ExtResource("2_q6pry")
+
+[node name="Section 1" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[node name="Switches" type="Node2D" parent="Panel/Section 1"]
+script = ExtResource("3_2avi7")
+
+[node name="Switch 1" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(-105.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 2" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(-75.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 3" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(-44.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 4" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(-14.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 5" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(16, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 6" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(47, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 7" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(78, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Switch 8" type="Sprite2D" parent="Panel/Section 1/Switches"]
+position = Vector2(108.5, -164)
+scale = Vector2(0.19, 0.19)
+texture = ExtResource("3_curtp")
+
+[node name="Rotary Encoder" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-44, -216)
+scale = Vector2(0.105, 0.105)
+texture = ExtResource("5_75y6h")
+
+[node name="7 Seg" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-96, -218)
+scale = Vector2(0.155, 0.155)
+texture = ExtResource("6_dbybx")
+script = ExtResource("8_t6kyj")
+number = 235
+
+[node name="OnesPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(116.129, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="TwosPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(7.43866e-05, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="ThreesPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
+position = Vector2(-116.129, -7.62939e-05)
+scale = Vector2(0.443549, 0.443549)
+texture = ExtResource("9_k3q2j")
+
+[node name="SectionButton" type="Sprite2D" parent="Panel/Section 1"]
+position = Vector2(-6.00002, -93)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
+
+[node name="Section 2" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[node name="Jacks" type="Node2D" parent="Panel/Section 2"]
+script = ExtResource("12_ochvj")
+
+[node name="Jack 1" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 51.9999)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 2" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 76.9999)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 3" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 102)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 4" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 128)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 5" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-164, 154)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 6" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 67.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 7" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 92.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 8" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 117.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 9" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 143.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="Jack 10" type="Sprite2D" parent="Panel/Section 2/Jacks"]
+position = Vector2(-75.549, 169.451)
+scale = Vector2(0.0794207, 0.0794207)
+texture = ExtResource("12_6kiqy")
+
+[node name="SectionButton" type="Sprite2D" parent="Panel/Section 2"]
+position = Vector2(-109, 0)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
+sectionNumber = 2
+
+[node name="Section 3" type="Node2D" parent="Panel"]
+scale = Vector2(1.693, 1.9802)
+
+[node name="SectionButton" type="Sprite2D" parent="Panel/Section 3"]
+position = Vector2(80.0001, 4)
+scale = Vector2(0.0875, 0.0875)
+texture = ExtResource("7_nxinu")
+script = ExtResource("11_g2vic")
+sectionNumber = 3
+
+[node name="Button Grid" type="Node2D" parent="Panel/Section 3"]
+script = ExtResource("14_mvg6v")
+
+[node name="Button 1" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(55, 65.9999)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 2" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(89.0001, 65.9999)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 3" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(123, 65.9999)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 4" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(158, 65.9999)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 5" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(55.25, 100.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 6" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(89.2501, 100.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 7" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(123.25, 100.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 8" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(158.25, 100.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 9" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(55.25, 135.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 10" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(89.2501, 135.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 11" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(123.25, 135.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 12" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(158.25, 135.25)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 13" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(55.5001, 169.5)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 14" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(89.5001, 169.5)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 15" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(123.5, 169.5)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Button 16" type="Sprite2D" parent="Panel/Section 3/Button Grid"]
+position = Vector2(158.5, 169.5)
+scale = Vector2(0.128151, 0.128151)
+texture = ExtResource("15_u25w2")
+script = ExtResource("16_qrscc")
+
+[node name="Exterior Key" type="Node2D" parent="."]
+
+[node name="KeyForButtonGrid" type="Sprite2D" parent="Exterior Key"]
+position = Vector2(402, 115)
+scale = Vector2(0.480625, 0.480626)
+texture = ExtResource("17_cyefm")
+
+[node name="Last Completed System" type="Polygon2D" parent="Exterior Key"]
+position = Vector2(237, 117)
+scale = Vector2(1.23714, 1.23714)
+color = Color(0.622881, 0.622881, 0.622881, 1)
+polygon = PackedVector2Array(-600, -300, -400, -300, -400, -125, -600, -125)
+
+[node name="Text" type="TextEdit" parent="Exterior Key/Last Completed System"]
+offset_left = -571.034
+offset_top = -277.241
+offset_right = -427.034
+offset_bottom = -153.241
+text = "Last Completed Subsystem:
+"
+editable = false
+wrap_mode = 1
+script = ExtResource("18_mgw17")
+
+[node name="Key For Jacks" type="Polygon2D" parent="Exterior Key"]
+position = Vector2(-30, 262)
+scale = Vector2(0.77, 0.77)
+color = Color(0.622881, 0.622881, 0.622881, 1)
+polygon = PackedVector2Array(-600, -300, -300, -300, -300, -100, -600, -100)
+
+[node name="Text" type="TextEdit" parent="Exterior Key/Key For Jacks"]
+offset_left = -573.359
+offset_top = -267.138
+offset_right = -326.359
+offset_bottom = -133.138
+text = "Jacks:
+Green Lines - Solution
+Gray Lines - Current position"
+editable = false
+
+[node name="Menu Button" type="Button" parent="."]
+offset_left = 347.0
+offset_top = -255.0
+offset_right = 486.0
+offset_bottom = -208.0
+theme_override_font_sizes/font_size = 28
+text = "Menu"
+
+[node name="Menu" parent="." instance=ExtResource("19_spcs5")]
+visible = false
+
+[connection signal="bringUpMenu" from="." to="Menu" method="pullUpMenu"]
+[connection signal="lastCompletedSystemUpdated" from="." to="Exterior Key/Last Completed System/Text" method="_on_subsystem_last_completed_system_updated"]
+[connection signal="newSectionNumber" from="." to="Panel/Section 1/SectionButton" method="_on_subsystem_new_section_number"]
+[connection signal="newSectionNumber" from="." to="Panel/Section 2/SectionButton" method="_on_subsystem_new_section_number"]
+[connection signal="newSectionNumber" from="." to="Panel/Section 3/SectionButton" method="_on_subsystem_new_section_number"]
+[connection signal="updateButtons" from="." to="Panel/Section 3/Button Grid" method="_on_subsystem_update_buttons"]
+[connection signal="updateButtonsSolution" from="." to="Panel/Section 3/Button Grid" method="_on_subsystem_update_buttons_solution"]
+[connection signal="updateJacks" from="." to="Panel/Section 2/Jacks" method="_on_subsystem_update_jacks"]
+[connection signal="updateJacksSolution" from="." to="Panel/Section 2/Jacks" method="_on_subsystem_update_jacks_solution"]
+[connection signal="updateSevenSeg" from="." to="Panel/Section 1/7 Seg" method="_updateSevenSeg"]
+[connection signal="updateSwitches" from="." to="Panel/Section 1/Switches" method="_on_subsystem_update_switches"]
+[connection signal="received_message" from="MQTT" to="." method="_on_mqtt_received_message"]
+[connection signal="pressed" from="Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="connectToIP" from="Menu" to="." method="startOnIp"]
+[connection signal="setPassword" from="Menu" to="." method="_on_menu_set_password"]
+[connection signal="setUser" from="Menu" to="." method="_on_menu_set_user"]

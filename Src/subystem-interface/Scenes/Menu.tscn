@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3 uid="uid://d5uxh3cfrduq"]
+
+[ext_resource type="Script" uid="uid://cpc6jtsh32pj8" path="res://Scripts/exit_button.gd" id="1_3kf3n"]
+[ext_resource type="Script" uid="uid://jkymsa61qmaw" path="res://Scripts/menu.gd" id="1_6pedr"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_6pedr")
+
+[node name="Fade Out" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.713726)
+polygon = PackedVector2Array(-800, -600, -800, 600, 800, 600, 800, -600)
+
+[node name="Background" type="Polygon2D" parent="."]
+scale = Vector2(0.265208, 0.265208)
+color = Color(0.118581, 0.118581, 0.118581, 1)
+polygon = PackedVector2Array(-800, -600, -800, 600, 800, 600, 800, -600)
+
+[node name="Title" type="RichTextLabel" parent="."]
+offset_left = -204.0
+offset_top = -158.0
+offset_right = 210.0
+offset_bottom = -64.0
+theme_override_font_sizes/normal_font_size = 32
+text = "Subsystem Panel Interface"
+
+[node name="IP Line" type="Node2D" parent="."]
+
+[node name="IP Input" type="LineEdit" parent="IP Line"]
+offset_left = -87.0
+offset_top = -83.0
+offset_right = 187.0
+offset_bottom = -52.0
+placeholder_text = "IP Address"
+
+[node name="Label" type="RichTextLabel" parent="IP Line"]
+offset_left = -174.0
+offset_top = -86.0
+offset_right = -91.0
+offset_bottom = -48.0
+theme_override_font_sizes/normal_font_size = 26
+text = "IP:"
+
+[node name="Username" type="Node2D" parent="."]
+
+[node name="Username Input" type="LineEdit" parent="Username"]
+offset_left = -88.0
+offset_top = -39.0
+offset_right = 186.0
+offset_bottom = -8.0
+placeholder_text = "User"
+
+[node name="Label" type="RichTextLabel" parent="Username"]
+offset_left = -175.0
+offset_top = -42.0
+offset_right = -92.0
+offset_bottom = -4.0
+theme_override_font_sizes/normal_font_size = 26
+text = "User:"
+
+[node name="Password" type="Node2D" parent="."]
+
+[node name="Password Input" type="LineEdit" parent="Password"]
+offset_left = -89.0
+offset_top = 6.0
+offset_right = 185.0
+offset_bottom = 37.0
+placeholder_text = "Password"
+secret = true
+secret_character = "*"
+
+[node name="Label" type="RichTextLabel" parent="Password"]
+offset_left = -176.0
+offset_top = 3.0
+offset_right = -93.0
+offset_bottom = 41.0
+theme_override_font_sizes/normal_font_size = 26
+text = "Pswd:"
+
+[node name="Save Line" type="Node2D" parent="."]
+
+[node name="Save Input" type="CheckButton" parent="Save Line"]
+offset_left = -180.0
+offset_top = 43.0
+offset_right = -50.0
+offset_bottom = 88.0
+theme_override_font_sizes/font_size = 27
+text = "Save   "
+
+[node name="Connect Button" type="Button" parent="."]
+offset_left = -157.0
+offset_top = 93.0
+offset_right = -18.0
+offset_bottom = 140.0
+theme_override_font_sizes/font_size = 28
+text = "Connect"
+
+[node name="Exit Button" type="Button" parent="."]
+offset_left = 31.0
+offset_top = 92.0
+offset_right = 170.0
+offset_bottom = 139.0
+theme_override_font_sizes/font_size = 28
+text = "Exit"
+script = ExtResource("1_3kf3n")
+
+[node name="Error Message" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -200.0
+offset_top = -114.0
+offset_right = 205.0
+offset_bottom = -74.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+text = "ERROR: Could Not Connect To Server"
+
+[connection signal="pressed" from="Connect Button" to="." method="_on_connect_button_pressed"]
+[connection signal="pressed" from="Exit Button" to="Exit Button" method="_on_pressed"]

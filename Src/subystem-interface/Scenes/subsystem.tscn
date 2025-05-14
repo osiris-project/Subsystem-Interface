@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cm8u1mv75qans"]
+[gd_scene load_steps=20 format=3 uid="uid://cm8u1mv75qans"]
 
 [ext_resource type="PackedScene" uid="uid://ktm7k0co2o7l" path="res://addons/mqtt/mqtt.tscn" id="1_8766w"]
 [ext_resource type="Script" uid="uid://crndry8xkkvrm" path="res://Scripts/subsystem.gd" id="1_nxinu"]
@@ -18,13 +18,16 @@
 [ext_resource type="Script" uid="uid://dbqektf02uaux" path="res://Scripts/button_on_grid.gd" id="16_qrscc"]
 [ext_resource type="Texture2D" uid="uid://dq2w70fnxab11" path="res://Images/Key for Button Grid.png" id="17_cyefm"]
 [ext_resource type="Script" uid="uid://b6jv2ybqcrklq" path="res://Scripts/text_last_completed_system.gd" id="18_mgw17"]
+[ext_resource type="PackedScene" uid="uid://d5uxh3cfrduq" path="res://Scenes/Menu.tscn" id="19_spcs5"]
 
 [node name="Subsystem" type="Node2D"]
 script = ExtResource("1_nxinu")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.118581, 0.118581, 0.118581, 1)
-polygon = PackedVector2Array(-818, -569, -817, 566, 1158, 565, 1159, -652, -817, -660)
+[node name="Background" type="Polygon2D" parent="."]
+position = Vector2(-2.66666, -1.99997)
+scale = Vector2(0.743333, 0.743333)
+color = Color(0.212305, 0.212305, 0.212305, 1)
+polygon = PackedVector2Array(-800, -600, -800, 600, 800, 600, 800, -600)
 
 [node name="MQTT" parent="." instance=ExtResource("1_8766w")]
 
@@ -90,7 +93,6 @@ position = Vector2(-96, -218)
 scale = Vector2(0.155, 0.155)
 texture = ExtResource("6_dbybx")
 script = ExtResource("8_t6kyj")
-number = 235
 
 [node name="OnesPlace" type="Sprite2D" parent="Panel/Section 1/7 Seg"]
 position = Vector2(116.129, -7.62939e-05)
@@ -288,7 +290,7 @@ script = ExtResource("16_qrscc")
 [node name="Exterior Key" type="Node2D" parent="."]
 
 [node name="KeyForButtonGrid" type="Sprite2D" parent="Exterior Key"]
-position = Vector2(402, 147)
+position = Vector2(402, 115)
 scale = Vector2(0.480625, 0.480626)
 texture = ExtResource("17_cyefm")
 
@@ -325,6 +327,17 @@ Green Lines - Solution
 Gray Lines - Current position"
 editable = false
 
+[node name="Menu Button" type="Button" parent="."]
+offset_left = 347.0
+offset_top = -255.0
+offset_right = 486.0
+offset_bottom = -208.0
+theme_override_font_sizes/font_size = 28
+text = "Menu"
+
+[node name="Menu" parent="." instance=ExtResource("19_spcs5")]
+
+[connection signal="bringUpMenu" from="." to="Menu" method="pullUpMenu"]
 [connection signal="lastCompletedSystemUpdated" from="." to="Exterior Key/Last Completed System/Text" method="_on_subsystem_last_completed_system_updated"]
 [connection signal="newSectionNumber" from="." to="Panel/Section 1/SectionButton" method="_on_subsystem_new_section_number"]
 [connection signal="newSectionNumber" from="." to="Panel/Section 2/SectionButton" method="_on_subsystem_new_section_number"]
@@ -335,4 +348,9 @@ editable = false
 [connection signal="updateJacksSolution" from="." to="Panel/Section 2/Jacks" method="_on_subsystem_update_jacks_solution"]
 [connection signal="updateSevenSeg" from="." to="Panel/Section 1/7 Seg" method="_updateSevenSeg"]
 [connection signal="updateSwitches" from="." to="Panel/Section 1/Switches" method="_on_subsystem_update_switches"]
+[connection signal="broker_connection_failed" from="MQTT" to="." method="_on_mqtt_broker_connection_failed"]
 [connection signal="received_message" from="MQTT" to="." method="_on_mqtt_received_message"]
+[connection signal="pressed" from="Menu Button" to="." method="_on_menu_button_pressed"]
+[connection signal="connectToIP" from="Menu" to="." method="startOnIp"]
+[connection signal="setPassword" from="Menu" to="." method="_on_menu_set_password"]
+[connection signal="setUser" from="Menu" to="." method="_on_menu_set_user"]
